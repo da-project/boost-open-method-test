@@ -99,6 +99,23 @@ BOOST_OPENMETHOD_OVERRIDE(encounter, (virtual_ptr<Dog>, virtual_ptr<Animal>), vo
 
 }
 
+namespace ab_da_ad {
+
+BOOST_OPENMETHOD(encounter, (virtual_ptr<Animal>, virtual_ptr<Animal>), void);
+
+BOOST_OPENMETHOD_OVERRIDE(encounter, (virtual_ptr<Dog>, virtual_ptr<Animal>), void) {
+    std::cout << "Dog Animal" << std::endl;
+}
+
+BOOST_OPENMETHOD_OVERRIDE(encounter, (virtual_ptr<Animal>, virtual_ptr<Bulldog>), void) {
+    std::cout << "Animal Bulldog" << std::endl;
+}
+
+BOOST_OPENMETHOD_OVERRIDE(encounter, (virtual_ptr<Animal>, virtual_ptr<Dog>), void) {
+    std::cout << "Animal Dog" << std::endl;
+}
+
+}
 
 int main(int arg, char *argv[]) {
 
@@ -117,6 +134,7 @@ int main(int arg, char *argv[]) {
 
 	da_ab::encounter(*hector, *hector); // Ambiguity, choice of override depends on the definition order
 	ab_da::encounter(*hector, *hector); // Ambiguity, choice of override depends on the definition order
+	ab_da_ad::encounter(*hector, *hector);
 
 	return 0;
 }
